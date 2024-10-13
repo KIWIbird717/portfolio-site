@@ -73,7 +73,7 @@ float snoise(vec3 v){
                                 dot(p2,x2), dot(p3,x3) ) );
 }`;
 
-export const dither = `
+const dither = `
 float luma(vec3 color) {
   return dot(color, vec3(0.299, 0.587, 0.114));
   }
@@ -309,7 +309,6 @@ export const planeFragment = `
 
 		vec3 color = mix(uBackground, uColor, result);
 
-		// color = vec3(wave);
-		gl_FragColor = vec4(color,1.0);
+		gl_FragColor = vec4(color, 1.0);
 	}
 `;
