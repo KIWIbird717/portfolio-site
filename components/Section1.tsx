@@ -5,45 +5,53 @@ import style from "./styles.module.scss";
 import { cn } from "@/shared/utils/cn";
 import dynamic from "next/dynamic";
 import { Transition, useAnimationFrame } from "framer-motion";
-
 import CrossSvg from "@/public/svg/cross.svg";
-import Polygon1Svg from "@/public/svg/polygon1.svg";
-import Polygon2Svg from "@/public/svg/polygon2.svg";
-import EllipseSvg from "@/public/svg/ellipse.svg";
 import { random } from "@/shared/utils/random";
+import CrossForPattern from "@/public/svg/cross-for-pattern.svg";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 export const Section1 = () => {
   return (
     <section className="relative mb-[20lvh] h-[100lvh] w-full overflow-hidden bg-black">
-      <div className="mx-auto flex h-full max-w-[1280px] items-center">
-        <Title />
+      <div className="relative mx-auto flex h-full max-w-[1280px] items-center px-[10px] max-sm:items-end max-sm:pb-[150px]">
+        <Title className="z-[2]" />
+        <PatternBg className="absolute left-0 top-0 z-[1]" />
       </div>
-
-      <Physics className={cn("absolute bottom-[-200px] left-[-10%] z-[1] max-sm:hidden")}>
-        <EllipseSvg className="aspect-square w-[50lvh] max-sm:w-[55lvh]" />
-      </Physics>
       <Physics
-        className={cn("absolute bottom-[-200px] left-[10%] z-[2]", style.cross)}
-        rotate={{ offset: -180 }}
-        animation={{ delay: 0.3 }}
+        className={cn(
+          "absolute bottom-[-200px] left-[10%] z-[2] max-sm:bottom-[-100px]",
+          style.cross,
+        )}
       >
         <CrossSvg className="aspect-square w-[70lvh] max-sm:w-[55lvh]" />
       </Physics>
-      <Physics
-        className={cn("absolute bottom-[-200px] right-[20%] z-[1]")}
-        animation={{ delay: 0.1 }}
-      >
-        <Polygon1Svg className="aspect-square w-[50lvh] max-sm:w-[55lvh]" />
-      </Physics>
-      <Physics
-        className={cn("absolute bottom-[-200px] right-0 z-[1] max-sm:hidden")}
-        animation={{ delay: 0.2 }}
-      >
-        <Polygon2Svg className="aspect-square w-[40lvh] max-sm:w-[55lvh]" />
-      </Physics>
     </section>
+  );
+};
+
+const Pattern: FC = () => {
+  return (
+    <div className="relative -m-[1px] aspect-square border-[1px] border-[#2a2a2a]">
+      <CrossForPattern className="absolute left-0 top-0 translate-x-[-50%] translate-y-[-50%]" />
+      <CrossForPattern className="absolute bottom-0 right-0 translate-x-[50%] translate-y-[50%]" />
+    </div>
+  );
+};
+
+type PatternBgProps = {
+  className?: string;
+};
+const PatternBg: FC<PatternBgProps> = (props) => {
+  const COLS = 10;
+  const ROWS = 10;
+
+  return (
+    <div className={cn("grid w-full grid-cols-10 gap-0 max-sm:grid-cols-5", props.className)}>
+      {Array.from({ length: COLS * ROWS }).map((_, index) => (
+        <Pattern key={`pattern-${index}`} />
+      ))}
+    </div>
   );
 };
 
@@ -75,17 +83,17 @@ const Physics: FC<PhysicsProps> = ({
   const ref = useRef<HTMLDivElement | null>(null);
 
   const yDefaultParams = {
-    offset: 1,
+    offset: random(1, 2, 1),
     amplitude: random(1, 40, 1),
     frequency: random(900, 1100, 1),
   };
   const xDefaultParams = {
-    offset: 1,
+    offset: random(1, 5, 1),
     amplitude: random(1, 40, 1),
     frequency: random(900, 1100, 1),
   };
   const rotateDefaultParams = {
-    offset: -8,
+    offset: random(-30, 30, 1),
     amplitude: random(10, 40, 1),
     frequency: random(900, 1100, 1),
   };
@@ -129,9 +137,17 @@ const Physics: FC<PhysicsProps> = ({
   );
 };
 
-const Title = () => {
+type TitleProps = {
+  className?: string;
+};
+const Title: FC<TitleProps> = (props) => {
   return (
-    <h1 className="font-[Degular] text-[180px] font-extrabold leading-[140px] text-white">
+    <h1
+      className={cn(
+        "text-[180px] font-semibold leading-[140px] text-white max-sm:text-[15vw] max-sm:leading-[14vw]",
+        props.className,
+      )}
+    >
       fullstack <br />
       <span className={cn("stroke-slate-50 text-transparent", style.title)}>web</span> <br />{" "}
       development
