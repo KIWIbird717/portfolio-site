@@ -4,17 +4,19 @@ import { cn } from "@/shared/utils/cn";
 import CrossSvg from "@/public/svg/cross.svg";
 import { PatternBg } from "@/shared/ui/PatternBg";
 import { Physics } from "@/shared/ui/Physics";
+import BlobDemo from "@/shared/ui/BlobCanvas";
 
 export const Section1 = () => {
   return (
     <section className="relative mb-[20lvh] h-[100lvh] w-full overflow-hidden bg-black">
+      <BlobDemo className="absolute left-0 top-0 z-[2] h-[100vh] w-[100vw]" />
       <div className="relative mx-auto flex h-full max-w-[1280px] items-center px-[10px] max-sm:items-end max-sm:pb-[150px]">
-        <Title className="z-[2]" />
+        <Title className="pointer-events-none z-[3]" />
         <PatternBg className="absolute left-0 top-0 z-[1]" />
       </div>
       <Physics
         className={cn(
-          "absolute bottom-[-200px] left-[10%] z-[2] max-sm:bottom-[-100px]",
+          "pointer-events-none absolute bottom-[-200px] left-[10%] z-[4] max-sm:bottom-[-100px]",
           style.cross,
         )}
       >
