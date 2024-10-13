@@ -43,7 +43,10 @@ export const ScaleIntoSection: FC<ScaleIntoSectionProps> = ({
   });
 
   return (
-    <section ref={containerRef} className={cn("h-[220lvh] py-[50px] contain-paint", className)}>
+    <section
+      ref={containerRef}
+      className={cn("my-[-1px] h-[220lvh] py-[50px] contain-paint", className)}
+    >
       <div className="sticky top-[calc(100lvh/2)] flex translate-y-[-50%] justify-center">
         <MotionDiv style={{ scale, x, y }}>{children}</MotionDiv>
       </div>

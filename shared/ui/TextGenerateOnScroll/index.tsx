@@ -64,7 +64,7 @@ const Word: FC<WordProps> = (props) => {
 
   return (
     <MotionSpan
-      className="h-fit text-[3.7vw] font-extrabold leading-[3.8vw] tracking-tight max-sm:text-[35px] max-sm:leading-[37px]"
+      className="h-fit text-[60px] font-extrabold leading-[62px] tracking-tight max-sm:text-[35px] max-sm:leading-[37px]"
       style={{ opacity }}
     >
       {props.word}{" "}
